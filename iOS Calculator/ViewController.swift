@@ -32,8 +32,6 @@ class ViewController: UIViewController {
     }
 
     @IBAction func percent_Sign(_ sender: UIButton, forEvent event: UIEvent) {
-//        percent = Double(display_Panel.text!)!
-//        display_Panel.text = String(percent/100)
         let returnValue = calcEngine.percenter(original: Double(display_Panel.text!)!)
         display_Panel.text = String(returnValue)
     }
@@ -45,16 +43,6 @@ class ViewController: UIViewController {
 //        }
     }
     @IBAction func positiveNegative(_ sender: UIButton, forEvent event: UIEvent) {
-//        if !negative {
-//            display_Panel.text! = ("-" + display_Panel.text!)
-//            negative = true
-//            print("Negative speaking")
-//        }
-//        else {
-//            display_Panel.text!.removeFirst()
-//            negative = false
-//            print("Negative speaking. 2")
-//        }
         let returnValue = calcEngine.posNeg(original: display_Panel.text!)
         display_Panel.text = returnValue
     }
@@ -66,6 +54,7 @@ class ViewController: UIViewController {
         operation = "";
         negative = false;
         percent = 0 ;
+        calcEngine.clear()
         
     }
     @IBAction func operator_Key(_ sender: UIButton, forEvent event: UIEvent) {
@@ -79,26 +68,26 @@ class ViewController: UIViewController {
     }
     
     @IBAction func equal_Pressed(_ sender: UIButton, forEvent event: UIEvent) {
-//        if display_Panel.text! == "0" {
-//            display_Panel.text! = ("0")
-//        } else {
-//        operrand_right = Double(display_Panel.text!)!
-//        print("\(operrand_right)")
-//        if operation == 20 {
-//            answer = String(operrand_left/operrand_right)
-//            print("\(answer) Hi. This is division speaking. Please leave a message.")
-//        }
-//        if operation == 21 {
-//            answer = String(operrand_left*operrand_right)
-//            print("\(answer) Hi. This is multiplication speaking. Please leave a message.")
-//        }
-//        if operation == 22 {
-//            answer = String(operrand_left-operrand_right)
-//        }
-//        if operation == 23 {
-//            answer = String(operrand_left+operrand_right)
-//        }
-//        display_Panel.text = answer
-//    }
+        if display_Panel.text! == "0" {
+            display_Panel.text! = ("0")
+        } else {
+        operrand_right = Double(display_Panel.text!)!
+        print("\(operrand_right)")
+        if operation == 20 {
+            answer = String(operrand_left/operrand_right)
+            print("\(answer) Hi. This is division speaking. Please leave a message.")
+        }
+        if operation == 21 {
+            answer = String(operrand_left*operrand_right)
+            print("\(answer) Hi. This is multiplication speaking. Please leave a message.")
+        }
+        if operation == 22 {
+            answer = String(operrand_left-operrand_right)
+        }
+        if operation == 23 {
+            answer = String(operrand_left+operrand_right)
+        }
+        display_Panel.text = answer
+    }
 }
 }

@@ -38,4 +38,7 @@ class CalculatorEngine {
         }
         return original2
     }
+    func clear() {
+        negative = false;
+    }
 }
