@@ -10,19 +10,10 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var operrand_right:Double = 0;
-    var operrand_left:Double = 0;
     var answer:String = "";
     var operation:String = "";
-    var negative:Bool = false;
     var percent:Double = 0;
     var calcEngine = CalculatorEngine();
-    let magicNumber:Double = 19;
-    var returnResult:Double = 0;
-    var opsPassed:Bool = false;
-    var calcEnginePassedTo:Bool = false;
-    
-    
     
     @IBOutlet var display_Panel: UILabel!
     
@@ -53,15 +44,9 @@ class ViewController: UIViewController {
     }
     @IBAction func clear(_ sender: UIButton, forEvent event: UIEvent) {
         display_Panel.text = ("0")
-        operrand_left = 0;
-        operrand_right = 0;
         answer = "";
         operation = "";
-        negative = false;
         percent = 0;
-        returnResult = 0;
-        opsPassed = false;
-        calcEnginePassedTo = false;
         calcEngine.clear()
     }
     @IBAction func operator_Key(_ sender: UIButton, forEvent event: UIEvent) {
