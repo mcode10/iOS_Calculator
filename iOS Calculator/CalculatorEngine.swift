@@ -8,13 +8,21 @@
 
 import Foundation
 
-var negative:Bool = false;
+var currentValue:Double = 0;
+var opJob:Double = 0;
+var operation:String = "";
 
 class CalculatorEngine {
-    func hi () -> Void{
-        print("Hi. It's me the Calculator Engine.")
+    struct Opwrapper {
+        var operand:Double
+        var operation:String
     }
-    struct IntStack {
+    func clear() {
+        opJob = 0
+        operation = "";
+        currentValue = 0
+    }
+    struct OperandStack {
         var items = [Double]()
         mutating func push(_ item: Double) {
             items.append(item)
@@ -23,22 +31,56 @@ class CalculatorEngine {
             return items.removeLast()
         }
     }
+    var doubleStack = OperandStack()
     func percenter (original: Double) -> Double {
         return (original/100)
     }
-    func posNeg(original: String) -> String {
-        var original2 = original
-        if !negative {
-            original2 = ("-" + original2)
-            negative = true
-        }
-        else {
-            original2.removeFirst()
-            negative = false
-        }
+    func posNeg(original: Double) -> Double {
+        let original2 = original * Double(-1)
         return original2
     }
-    func clear() {
-        negative = false;
+    func loadParameters(operand: Double, operationPassed: String = "") {
+        if currentValue == Double(0) {
+            operation = operationPassed
+            doubleStack.push(operand)
+            currentValue = operand
+            print(currentValue)
+        } else {
+            currentValue = doubleStack.pop()
+            print(currentValue)
+            if operation == "23" {
+                currentValue = add(operand1: currentValue, operand2: operand)
+            }
+            if operation == "22" {
+                currentValue = subtract(operand1: currentValue, operand2: operand)
+            }
+            if operation == "21" {
+                currentValue = multiply(operand1: currentValue, operand2: operand)
+            }
+            if operation == "20" {
+                currentValue = division(operand1: currentValue, operand2: operand)
+            }
+            doubleStack.push(currentValue)
+            print(currentValue)
+            operation = operationPassed
+        }
+    }
+    func add(operand1: Double, operand2: Double) -> Double {
+        return operand2 + operand1
+    }
+    func subtract(operand1: Double, operand2: Double) -> Double {
+        return operand1 - operand2
+    }
+    func multiply(operand1: Double, operand2: Double) -> Double {
+        return operand2 * operand1
+    }
+    func division(operand1: Double, operand2: Double) -> Double {
+        if operand2 == Double(0) {
+            print("You cannot divide by zero.")
+        }
+        return operand1 / operand2
+    }
+    func returnAnswer() -> Double {
+        return currentValue
     }
 }

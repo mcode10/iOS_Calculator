@@ -16,7 +16,12 @@ class ViewController: UIViewController {
     var operation:String = "";
     var negative:Bool = false;
     var percent:Double = 0;
-    let calcEngine = CalculatorEngine()
+    var calcEngine = CalculatorEngine();
+    let magicNumber:Double = 19;
+    var returnResult:Double = 0;
+    var opsPassed:Bool = false;
+    var calcEnginePassedTo:Bool = false;
+    
     
     
     @IBOutlet var display_Panel: UILabel!
@@ -36,15 +41,15 @@ class ViewController: UIViewController {
         display_Panel.text = String(returnValue)
     }
     @IBAction func decimalPoint(_ sender: UIButton, forEvent event: UIEvent) {
-//        if display_Panel.text!.contains(".") {
-//            display_Panel.text! = (display_Panel.text!)
-//        } else {
-//            display_Panel.text! = (display_Panel.text! + ".")
-//        }
+        if display_Panel.text!.contains(".") {
+            display_Panel.text! = (display_Panel.text!)
+        } else {
+            display_Panel.text! = (display_Panel.text! + ".")
+        }
     }
     @IBAction func positiveNegative(_ sender: UIButton, forEvent event: UIEvent) {
-        let returnValue = calcEngine.posNeg(original: display_Panel.text!)
-        display_Panel.text = returnValue
+        let returnValue = calcEngine.posNeg(original: Double(display_Panel.text!)!)
+        display_Panel.text = String(returnValue)
     }
     @IBAction func clear(_ sender: UIButton, forEvent event: UIEvent) {
         display_Panel.text = ("0")
@@ -53,41 +58,25 @@ class ViewController: UIViewController {
         answer = "";
         operation = "";
         negative = false;
-        percent = 0 ;
+        percent = 0;
+        returnResult = 0;
+        opsPassed = false;
+        calcEnginePassedTo = false;
         calcEngine.clear()
-        
     }
     @IBAction func operator_Key(_ sender: UIButton, forEvent event: UIEvent) {
-        operrand_left = Double(display_Panel.text!)!
-        operation = display_Panel.text!
+        let operand: Double = Double(display_Panel.text!)!
+        operation = String(sender.tag)
+        calcEngine.loadParameters(operand: operand, operationPassed: operation)
         display_Panel.text = "0"
     }
-    
     @IBAction func numbers(_ sender: UIButton, forEvent event: UIEvent) {
         display_Panel.text = display_Panel.text! + String(sender.tag-1)
     }
     
     @IBAction func equal_Pressed(_ sender: UIButton, forEvent event: UIEvent) {
-        if display_Panel.text! == "0" {
-            display_Panel.text! = ("0")
-        } else {
-        operrand_right = Double(display_Panel.text!)!
-        print("\(operrand_right)")
-        if operation == 20 {
-            answer = String(operrand_left/operrand_right)
-            print("\(answer) Hi. This is division speaking. Please leave a message.")
-        }
-        if operation == 21 {
-            answer = String(operrand_left*operrand_right)
-            print("\(answer) Hi. This is multiplication speaking. Please leave a message.")
-        }
-        if operation == 22 {
-            answer = String(operrand_left-operrand_right)
-        }
-        if operation == 23 {
-            answer = String(operrand_left+operrand_right)
-        }
+        calcEngine.loadParameters(operand: Double(display_Panel.text!)!)
+        answer = String(calcEngine.returnAnswer())
         display_Panel.text = answer
     }
-}
 }
