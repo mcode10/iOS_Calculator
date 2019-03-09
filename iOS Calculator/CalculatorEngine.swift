@@ -60,17 +60,17 @@ class CalculatorEngine {
         } else {
             currentValue = doubleStack.pop()
             print(currentValue)
-            if operation == "23" {
-                currentValue = add(operand1: currentValue, operand2: operand)
-            }
-            if operation == "22" {
-                currentValue = subtract(operand1: currentValue, operand2: operand)
-            }
-            if operation == "21" {
-                currentValue = multiply(operand1: currentValue, operand2: operand)
-            }
-            if operation == "20" {
-                currentValue = division(operand1: currentValue, operand2: operand)
+            switch operation {
+            case "23" :
+                currentValue = add (operand1: currentValue, operand2: operand)
+            case "22" :
+                currentValue = subtract (operand1: currentValue, operand2: operand)
+            case "21" :
+                currentValue = multiply (operand1: currentValue, operand2: operand)
+            case "20" :
+                currentValue = division (operand1: currentValue, operand2: operand)
+            default:
+                print("Error")
             }
             doubleStack.push(currentValue)
             print(currentValue)
