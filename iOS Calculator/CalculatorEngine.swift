@@ -8,14 +8,23 @@
 
 import Foundation
 
+enum operatorCases: String {
+    case add = "23"
+    case subtract = "22"
+    case multiply = "21"
+    case divide = "20"
+    case nothing
+}
+
 var currentValue:Double = 0;
-var operation:String = "";
+var operation:operatorCases = .nothing;
 
 class CalculatorEngine {
     func clear() {
-        operation = "";
+        operation = .nothing;
         currentValue = 0
     }
+    
     func returnAnswer() -> Double {
         return currentValue
     }
@@ -28,7 +37,7 @@ class CalculatorEngine {
             return items.removeLast()
         }
     }
-    var doubleStack = OperandStack()
+    var operandStack = OperandStack()
     func percenter (original: Double) -> Double {
         return (original/100)
     }
@@ -51,28 +60,28 @@ class CalculatorEngine {
         }
         return operand1 / operand2
     }
-    func loadParameters(operand: Double, operationPassed: String = "") {
+    func loadParameters(operand: Double, operationPassed: operatorCases) {
         if currentValue == Double(0) {
             operation = operationPassed
-            doubleStack.push(operand)
+            operandStack.push(operand)
             currentValue = operand
             print(currentValue)
         } else {
-            currentValue = doubleStack.pop()
+            currentValue = operandStack.pop()
             print(currentValue)
             switch operation {
-            case "23" :
+            case .add:
                 currentValue = add (operand1: currentValue, operand2: operand)
-            case "22" :
+            case .subtract:
                 currentValue = subtract (operand1: currentValue, operand2: operand)
-            case "21" :
+            case .multiply:
                 currentValue = multiply (operand1: currentValue, operand2: operand)
-            case "20" :
+            case .divide:
                 currentValue = division (operand1: currentValue, operand2: operand)
-            default:
-                print("Error")
+            case .nothing:
+                print("Either something went wrong, or we are in a default state")
             }
-            doubleStack.push(currentValue)
+            operandStack.push(currentValue)
             print(currentValue)
             operation = operationPassed
         }

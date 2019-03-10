@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     
     var answer:String = "";
-    var operation:String = "";
+    var operation:operatorCases = .nothing;
     var percent:Double = 0;
     var calcEngine = CalculatorEngine();
     
@@ -45,13 +45,24 @@ class ViewController: UIViewController {
     @IBAction func clear(_ sender: UIButton, forEvent event: UIEvent) {
         display_Panel.text = ("0")
         answer = "";
-        operation = "";
+        operation = .nothing;
         percent = 0;
         calcEngine.clear()
     }
     @IBAction func operator_Key(_ sender: UIButton, forEvent event: UIEvent) {
         let operand: Double = Double(display_Panel.text!)!
-        operation = String(sender.tag)
+        switch sender.tag {
+        case 23:
+            operation = .add
+        case 22:
+            operation = .subtract
+        case 21:
+            operation = .multiply
+        case 20:
+            operation = .divide
+        default:
+            operation = .nothing
+        }
         calcEngine.loadParameters(operand: operand, operationPassed: operation)
         display_Panel.text = "0"
     }
@@ -60,7 +71,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func equal_Pressed(_ sender: UIButton, forEvent event: UIEvent) {
-        calcEngine.loadParameters(operand: Double(display_Panel.text!)!)
+        operation = .nothing
+        calcEngine.loadParameters(operand: Double(display_Panel.text!)!, operationPassed: operation)
         answer = String(calcEngine.returnAnswer())
         display_Panel.text = answer
     }
