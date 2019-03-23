@@ -71,13 +71,13 @@ class CalculatorEngine {
             print(currentValue)
             switch operation {
             case .add:
-                currentValue = add (operand1: currentValue, operand2: operand)
+                currentValue = add(operand1: currentValue, operand2: operand)
             case .subtract:
-                currentValue = subtract (operand1: currentValue, operand2: operand)
+                currentValue = subtract(operand1: currentValue, operand2: operand)
             case .multiply:
-                currentValue = multiply (operand1: currentValue, operand2: operand)
+                currentValue = multiply(operand1: currentValue, operand2: operand)
             case .divide:
-                currentValue = division (operand1: currentValue, operand2: operand)
+                currentValue = division(operand1: currentValue, operand2: operand)
             case .nothing:
                 print("Either something went wrong, or we are in a default state")
             }
