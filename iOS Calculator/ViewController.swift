@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     var answer:String = "";
     var operation:operatorCases = .nothing;
     var percent:Double = 0;
-    var calcEngine = CalculatorEngine();
+    var calcEngine = getCalcEngine();
     
     @IBOutlet var display_Panel: UILabel!
     

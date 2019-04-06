@@ -16,9 +16,15 @@ enum operatorCases: String {
     case nothing
 }
 
+func getCalcEngine() -> CalcEngineProtocol {
+    var calcEngine = CalculatorEngine();
+    return calcEngine
+}
+
 protocol CalcEngineProtocol {
     func percenter(original: Double) -> Double
     func posNeg(original: Double) -> Double
     func clear()
     func returnAnswer() -> Double
+    func loadParameters(operand: Double, operationPassed: operatorCases)
 }
