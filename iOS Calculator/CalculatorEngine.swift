@@ -8,18 +8,12 @@
 
 import Foundation
 
-enum operatorCases: String {
-    case add = "23"
-    case subtract = "22"
-    case multiply = "21"
-    case divide = "20"
-    case nothing
-}
+
 
 var currentValue:Double = 0;
 var operation:operatorCases = .nothing;
 
-class CalculatorEngine {
+class CalculatorEngine:CalcEngineProtocol {
     func clear() {
         operation = .nothing;
         currentValue = 0
@@ -38,7 +32,7 @@ class CalculatorEngine {
         }
     }
     var operandStack = OperandStack()
-    func percenter (original: Double) -> Double {
+    func percenter(original: Double) -> Double {
         return (original/100)
     }
     func posNeg(original: Double) -> Double {
