@@ -8,23 +8,22 @@
 
 import Foundation
 
-enum operatorCases: String {
-    case add = "23"
-    case subtract = "22"
-    case multiply = "21"
-    case divide = "20"
-    case nothing
+enum operatorCases {
+    case add
+    case subtract
+    case multiply
+    case divide
 }
 
 func getCalcEngine() -> CalcEngineProtocol {
-    var calcEngine = CalculatorEngine();
-    return calcEngine
+    return CalculatorEngine()
 }
 
 protocol CalcEngineProtocol {
     func percenter(original: Double) -> Double
-    func posNeg(original: Double) -> Double
+    func positiveNegative(original: Double) -> Double
     func clear()
-    func returnAnswer() -> Double
-    func loadParameters(operand: Double, operationPassed: operatorCases)
+    func equalPressed(operand: Double) -> Double
+    func calcEngineInput(operand: Double, operationPassed: operatorCases)
+    func equalAfterthought(operationPassed: operatorCases)
 }

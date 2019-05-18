@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     
     var answer:String = "";
-    var operation:operatorCases = .nothing;
+    var operation:operatorCases = .add;
     var percent:Double = 0;
     var calcEngine = getCalcEngine();
     
@@ -39,41 +39,61 @@ class ViewController: UIViewController {
         }
     }
     @IBAction func positiveNegative(_ sender: UIButton, forEvent event: UIEvent) {
-        let returnValue = calcEngine.posNeg(original: Double(display_Panel.text!)!)
+        let returnValue = calcEngine.positiveNegative(original: Double(display_Panel.text!)!)
         display_Panel.text = String(returnValue)
     }
     @IBAction func clear(_ sender: UIButton, forEvent event: UIEvent) {
         display_Panel.text = ("0")
         answer = "";
-        operation = .nothing;
+        operation = .add;
         percent = 0;
         calcEngine.clear()
     }
     @IBAction func operator_Key(_ sender: UIButton, forEvent event: UIEvent) {
         let operand: Double = Double(display_Panel.text!)!
-        switch sender.tag {
-        case 23:
-            operation = .add
-        case 22:
-            operation = .subtract
-        case 21:
-            operation = .multiply
-        case 20:
-            operation = .divide
-        default:
-            operation = .nothing
+        if answer == ""{
+            switch sender.tag {
+            case 23:
+                operation = .add
+            case 22:
+                operation = .subtract
+            case 21:
+                operation = .multiply
+            case 20:
+                operation = .divide
+            default:
+                print("This shouldn't be happening")
+                sleep(5)
+                exit(0)
+            }
+            calcEngine.calcEngineInput(operand: operand, operationPassed: operation)
+            display_Panel.text = "0"
+        } else {
+            switch sender.tag {
+            case 23:
+                operation = .add
+            case 22:
+                operation = .subtract
+            case 21:
+                operation = .multiply
+            case 20:
+                operation = .divide
+            default:
+                print("This shouldn't be happening")
+                sleep(5)
+                exit(0)
+            }
+            calcEngine.equalAfterthought(operationPassed: operation)
+            answer = ""
+            display_Panel.text = "0"
         }
-        calcEngine.loadParameters(operand: operand, operationPassed: operation)
-        display_Panel.text = "0"
     }
     @IBAction func numbers(_ sender: UIButton, forEvent event: UIEvent) {
         display_Panel.text = display_Panel.text! + String(sender.tag-1)
     }
     
-    @IBAction func equal_Pressed(_ sender: UIButton, forEvent event: UIEvent) {
-        operation = .nothing
-        calcEngine.loadParameters(operand: Double(display_Panel.text!)!, operationPassed: operation)
-        answer = String(calcEngine.returnAnswer())
+    @IBAction func equalPressed(_ sender: UIButton, forEvent event: UIEvent) {
+        answer = String(calcEngine.equalPressed(operand: Double(display_Panel.text!)!))
         display_Panel.text = answer
     }
 }

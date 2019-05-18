@@ -9,17 +9,33 @@
 import Foundation
 
 
-
-var currentValue:Double = 0;
-var operation:operatorCases = .nothing;
-
 class CalculatorEngine:CalcEngineProtocol {
+    var currentValue:Double = 0;
+    var operation:operatorCases = .add;
     func clear() {
-        operation = .nothing;
+        operation = .add;
         currentValue = 0
     }
-    
-    func returnAnswer() -> Double {
+    func equalAfterthought(operationPassed: operatorCases) {
+        operation = operationPassed
+    }
+    func equalPressed(operand: Double) -> Double {
+        currentValue = operandStack.pop()
+        print(currentValue, "I am from equalPressed")
+        print(operation, "I am from equalPressed")
+        switch operation {
+        case .add:
+            currentValue = add(operand1: currentValue, operand2: operand)
+        case .subtract:
+            currentValue = subtract(operand1: currentValue, operand2: operand)
+        case .divide:
+            currentValue = division(operand1: currentValue, operand2: operand)
+        case .multiply:
+            currentValue = multiply(operand1: currentValue, operand2: operand)
+        }
+        operandStack.push(currentValue)
+        print(currentValue, "I am from equalPressed")
+        print(operation, "I am from equalPressed")
         return currentValue
     }
     struct OperandStack {
@@ -35,7 +51,7 @@ class CalculatorEngine:CalcEngineProtocol {
     func percenter(original: Double) -> Double {
         return (original/100)
     }
-    func posNeg(original: Double) -> Double {
+    func positiveNegative(original: Double) -> Double {
         let original2 = original * Double(-1)
         return original2
     }
@@ -54,15 +70,16 @@ class CalculatorEngine:CalcEngineProtocol {
         }
         return operand1 / operand2
     }
-    func loadParameters(operand: Double, operationPassed: operatorCases) {
+    func calcEngineInput(operand: Double, operationPassed: operatorCases) {
         if currentValue == Double(0) {
             operation = operationPassed
             operandStack.push(operand)
             currentValue = operand
-            print(currentValue)
+            print(currentValue, "I am from CalcEngineInput")
+            print(operation, "I am from CalcEngineInput")
         } else {
             currentValue = operandStack.pop()
-            print(currentValue)
+            print(currentValue, "I am from CalcEngineInput")
             switch operation {
             case .add:
                 currentValue = add(operand1: currentValue, operand2: operand)
@@ -72,13 +89,11 @@ class CalculatorEngine:CalcEngineProtocol {
                 currentValue = multiply(operand1: currentValue, operand2: operand)
             case .divide:
                 currentValue = division(operand1: currentValue, operand2: operand)
-            case .nothing:
-                print("Either something went wrong, or we are in a default state")
             }
             operandStack.push(currentValue)
-            print(currentValue)
+            print(currentValue, "I am from CalcEngineInput")
             operation = operationPassed
+            print(operation, "I am from CalcEngineInput")
         }
     }
 }
-
