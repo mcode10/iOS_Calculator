@@ -183,7 +183,7 @@
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="equal_Pressed:forEvent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tlV-ca-X0q"/>
+                                    <action selector="equalPressed:forEvent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="b2Y-VX-fOj"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vu6-az-TLo">
